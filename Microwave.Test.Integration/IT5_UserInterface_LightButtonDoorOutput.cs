@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using Microwave.Classes.Boundary;
+using Microwave.Classes.Interfaces;
+using NUnit.Framework;
 
 namespace Microwave.Test.Integration
 {
