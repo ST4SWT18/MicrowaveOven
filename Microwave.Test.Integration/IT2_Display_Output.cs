@@ -1,5 +1,6 @@
 ﻿using Microwave.Classes.Boundary;
 using Microwave.Classes.Interfaces;
+using NSubstitute;
 using NUnit.Framework;
 
 
@@ -19,11 +20,11 @@ namespace Microwave.Test.Integration
             _uut = new Display(_output);
         }
 
-        [TestCase(10,2)]
-        public void ShowTimeIsViewed(int min, int sec)
+        [TestCase(1,2)]
+        public void ShowTime_MinutesAndSecundsIsShowed(int min, int sec)
         {
             _uut.ShowTime(min, sec);
-            _output.Received().
+            _output.OutputLine(Arg.Is<string>(str => str.Contains($"{min},{sec}")));
         }
     }
 }
