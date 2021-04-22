@@ -32,6 +32,10 @@ namespace Microwave.App
             cooker.UI = ui;
 
             // Simulate a simple sequence
+            
+            door.Open();
+
+            door.Close();
 
             powerButton.Press();
 
