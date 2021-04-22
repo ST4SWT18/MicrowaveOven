@@ -8,7 +8,7 @@ namespace Microwave.Classes.Boundary
 
         public Display(IOutput output)
         {
-            myOutput = output;
+            myOutput = output;  
         }
 
         public void ShowTime(int min, int sec)
