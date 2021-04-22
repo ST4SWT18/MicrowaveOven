@@ -22,7 +22,7 @@ namespace Microwave.Test.Integration
         [TestCase(2, 55)]
         [TestCase(10, 22)]
         [TestCase(55, 17)]
-        public void ShowTime_MinutesAndSecundsIsDisplayed(int min, int sec)
+        public void ShowTime_MinutesAndSecondsIsDisplayed(int min, int sec)
         {
             _uut.ShowTime(min, sec);
             _output.OutputLine(Arg.Is<string>(str => str.Contains($"{min},{sec}")));
