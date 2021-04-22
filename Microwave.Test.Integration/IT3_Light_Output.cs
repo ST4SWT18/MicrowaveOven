@@ -18,7 +18,6 @@ namespace Microwave.Test.Integration
             _uut = new Light(_output);
         }
 
-
         [Test]
         public void TurnOn_LightIsTurnedOnIsWritten()
         {
