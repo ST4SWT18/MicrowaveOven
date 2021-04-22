@@ -19,10 +19,30 @@ namespace Microwave.Test.Integration
         }
 
         [TestCase(1,2)]
-        public void ShowTime_MinutesAndSecundsIsShowed(int min, int sec)
+        [TestCase(2, 55)]
+        [TestCase(10, 22)]
+        [TestCase(55, 17)]
+        public void ShowTime_MinutesAndSecundsIsDisplayed(int min, int sec)
         {
             _uut.ShowTime(min, sec);
             _output.OutputLine(Arg.Is<string>(str => str.Contains($"{min},{sec}")));
         }
+
+        [TestCase(1)]
+        [TestCase(500)]
+        [TestCase(1000)]
+        public void ShowPower_PowerIsDisplayed(int power)
+        {
+            _uut.ShowPower(power);
+            _output.OutputLine(Arg.Is<string>(str => str.Contains($"{power}")));
+        }
+
+        [Test]
+        public void Clear_DisplayClearedIsDisplayed()
+        {
+            _uut.Clear();
+            _output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains("cleared")));
+        }
+
     }
 }
