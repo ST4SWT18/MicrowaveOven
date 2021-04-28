@@ -23,5 +23,7 @@ namespace Microwave.Test.Integration
             _powerTube = new PowerTube(_output);
             _uut = new CookController(_timer, _display, _powerTube);
         }
+
+
     }
 }
