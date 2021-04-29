@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
@@ -22,6 +23,7 @@ namespace Microwave.Test.Integration
         private ITimer _timer;
         private IPowerTube _powerTube;
         private UserInterface _uut;
+        private StringWriter _readConsole;
 
         [SetUp]
         public void SetUp()
@@ -37,24 +39,24 @@ namespace Microwave.Test.Integration
             _powerTube = new PowerTube(_output);
             _cookController = new CookController(_timer, _display, _powerTube);
             _uut = new UserInterface(_powerButton, _timeButton, _cancelButton, _door, _display, _light, _cookController);
+
+            _readConsole = new StringWriter();
+            System.Console.SetOut(_readConsole);
         }
 
         [Test]
-        public void ResetValues_PowerLevelAndTime_IsReset()
+        public void PowerButton_Press2Times_50And100IsWritten()
         {
-            //_powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-            //_cancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-            //_powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-            //_uut.OnPowerPressed(this, EventArgs.Empty);
-            //_powerButton.Press();
+    
+            _powerButton.Press();
             _powerButton.Press();
 
             var powerBeforeIncrease = 50;
             var powerAfterIncrease = 100;
-            var powerAfterReset = 50;
-            //_output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains($"{powerBeforeIncrease}")));
-            //_output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains($"{powerAfterIncrease}")));
-            _output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains($"Display shows: 100 W")));
+
+            var text = _readConsole.ToString();
+
+            Assert.That(text, Is.EqualTo($"Display shows: {powerBeforeIncrease} W\r\nDisplay shows: {powerAfterIncrease} W\r\n"));
         }
     }
 }
