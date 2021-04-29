@@ -32,10 +32,38 @@ namespace Microwave.App
             cooker.UI = ui;
 
             // Simulate a simple sequence
-            
-            //door.Open();
 
-            //door.Close();
+
+            //bool finish = false;
+            //do
+            //{
+            //    string input;
+            //    System.Console.WriteLine("Indtast P, T eller C");
+            //    input = Console.ReadLine().ToString().ToLower();
+            //    if (string.IsNullOrEmpty(input)) continue;
+
+            //    switch (input[0])
+            //    {
+            //        case 'p':
+            //            powerButton.Press();
+            //            Console.WriteLine("Tryk T");
+            //            break;
+
+            //        case 't':
+            //            timeButton.Press();
+            //            break;
+            //        case 'c':
+            //            startCancelButton.Press();
+            //            break;
+            //            break;
+            //    }
+
+            //} while (!finish);
+
+
+            door.Open();
+
+            door.Close();
 
             powerButton.Press();
 

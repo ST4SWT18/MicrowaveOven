@@ -10,30 +10,30 @@ namespace Microwave.Test.Integration
     public class IT1_PowerTube_Output
     {
         private IOutput _output;
-        private IPowerTube _uut;
+        private IPowerTube _sut;
 
         [SetUp]
         public void SetUp()
         {
             _output = new Output();
-            _uut = new PowerTube(_output);
+            _sut = new PowerTube(_output);
         }
 
         [TestCase(1)]
         [TestCase(50)]
-        [TestCase(100)]
+        [TestCase(700)]
         public void TurnOn_PowerIsCorrectlyWritten(int power)
         {
-            _uut.TurnOn(power);
+            _sut.TurnOn(power);
             _output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains($"{power}")));
         }
 
         [TestCase(1)]
         [TestCase(50)]
-        [TestCase(100)]
+        [TestCase(700)]
         public void TurnOff_PowerIsTurnedOffIsWritten(int power)
         {
-            _uut.TurnOff();
+            _sut.TurnOff();
             _output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains($"off")));
         }
     }
