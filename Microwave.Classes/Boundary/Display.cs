@@ -1,4 +1,5 @@
-﻿using Microwave.Classes.Interfaces;
+﻿using System;
+using Microwave.Classes.Interfaces;
 
 namespace Microwave.Classes.Boundary
 {
@@ -8,7 +9,7 @@ namespace Microwave.Classes.Boundary
 
         public Display(IOutput output)
         {
-            myOutput = output;
+            myOutput = output;  
         }
 
         public void ShowTime(int min, int sec)

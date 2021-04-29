@@ -51,6 +51,5 @@ namespace Microwave.Classes.Boundary
                 Expire();
             }
         }
-
     }
 }
