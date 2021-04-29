@@ -16,6 +16,9 @@ namespace Microwave.Test.Integration
         private IPowerTube _powerTube;
         private CookController _sut;
 
+        //Other
+        private IButton _timerButton;
+
         [SetUp]
         public void SetUp()
         {
@@ -24,6 +27,10 @@ namespace Microwave.Test.Integration
             _display = new Display(_output);
             _powerTube = new PowerTube(_output); 
             _sut = new CookController(_timer, _display, _powerTube);
+
+            //Other
+            _timerButton = new Button();
+            
         }
 
         [TestCase(101, 10)]
@@ -59,12 +66,17 @@ namespace Microwave.Test.Integration
         [Test]
         public void test()
         {
-            _sut.StartCooking(3, 1000);
+            _timerButton.Press();
+
+
+
+
+            //_sut.StartCooking(3, 1000);
 
             
-            //_timer.Expired += Raise.EventWith(this, EventArgs.Empty);
+            ////_timer.Expired += Raise.EventWith(this, EventArgs.Empty);
 
-            _output.OutputLine(Arg.Is<string>(str => str.Contains($"{1},{55}")));
+            //_output.OutputLine(Arg.Is<string>(str => str.Contains($"{1},{55}")));
         }
     }
 }
