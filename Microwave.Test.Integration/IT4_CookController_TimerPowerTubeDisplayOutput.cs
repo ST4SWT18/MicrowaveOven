@@ -22,7 +22,7 @@ namespace Microwave.Test.Integration
             _timer = new Timer();
             _output = new Output();
             _display = new Display(_output);
-            _powerTube = new PowerTube(_output); //Substitute.For<IPowerTube>(); //
+            _powerTube = new PowerTube(_output); 
             _sut = new CookController(_timer, _display, _powerTube);
         }
 
@@ -49,14 +49,22 @@ namespace Microwave.Test.Integration
             Assert.That(_timer.TimeRemaining, Is.EqualTo(time));
         }
 
-        [Test]
-        public void Stop_()
-        {
-            _sut.Stop();
-            _powerTube.Received(1).TurnOff();
-        }
-
         //[Test]
+        //public void Stop_()
+        //{
+        //    _sut.Stop();
+        //    _powerTube.Received(1).TurnOff();
+        //}
 
+        [Test]
+        public void test()
+        {
+            _sut.StartCooking(3, 1000);
+
+            
+            //_timer.Expired += Raise.EventWith(this, EventArgs.Empty);
+
+            _output.OutputLine(Arg.Is<string>(str => str.Contains($"{1},{55}")));
+        }
     }
 }
