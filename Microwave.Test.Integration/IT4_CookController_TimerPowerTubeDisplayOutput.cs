@@ -56,14 +56,6 @@ namespace Microwave.Test.Integration
             _powerTube.Received(1).TurnOff();
         }
 
-        [TestCase(14, 14)]
-        public void test(int expected, int actual)
-        {
-            _timer.TimeRemaining.Returns(actual);
-            _timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
-
-            Assert.That();
-        }
 
         //[Test]
 
