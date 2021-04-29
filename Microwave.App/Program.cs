@@ -32,16 +32,58 @@ namespace Microwave.App
             cooker.UI = ui;
 
             // Simulate a simple sequence
-            
+
+
+            bool finish = false;
+            do
+            {
+                string input;
+                System.Console.WriteLine("Indtast P, T eller C");
+                input = Console.ReadLine().ToString().ToLower();
+                if (string.IsNullOrEmpty(input)) continue;
+
+                switch (input[0])
+                {
+                    case 'p':
+                        powerButton.Press();
+                        Console.WriteLine("Tryk T");
+                        break;
+
+                    case 't':
+                        timeButton.Press();
+                        break;
+                    case 'c':
+                        startCancelButton.Press();
+                        break;
+
+                    //case 'c':
+                    //    door.OnDoorClose(true);
+                    //    break;
+
+                    //case 'r':
+                    //    System.Console.WriteLine("Indtast RFID id: ");
+                    //    string idString = System.Console.ReadLine();
+
+                    //    int id = Convert.ToInt32(idString);
+                    //    rfidReader.OnRfidRead(id);
+                    //    break;
+
+                    default:
+                        break;
+                }
+
+            } while (!finish);
+
+
             door.Open();
 
             door.Close();
 
-            powerButton.Press();
+            //powerButton.Press();
 
-            timeButton.Press();
+            //timeButton.Press();
 
-            startCancelButton.Press();
+            //startCancelButton.Press();
 
             // The simple sequence should now run
 

@@ -21,7 +21,7 @@ namespace Microwave.Test.Integration
 
         [TestCase(1)]
         [TestCase(50)]
-        [TestCase(100)]
+        [TestCase(700)]
         public void TurnOn_PowerIsCorrectlyWritten(int power)
         {
             _sut.TurnOn(power);
@@ -30,7 +30,7 @@ namespace Microwave.Test.Integration
 
         [TestCase(1)]
         [TestCase(50)]
-        [TestCase(100)]
+        [TestCase(700)]
         public void TurnOff_PowerIsTurnedOffIsWritten(int power)
         {
             _sut.TurnOff();
