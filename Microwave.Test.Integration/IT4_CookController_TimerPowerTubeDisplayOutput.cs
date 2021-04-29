@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Threading;
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
+using Timer = Microwave.Classes.Boundary.Timer;
 
 namespace Microwave.Test.Integration
 {
@@ -18,6 +20,8 @@ namespace Microwave.Test.Integration
 
         //Other
         private IButton _timerButton;
+        private IButton _powerButton;
+        private IButton _startCancelButton;
 
         [SetUp]
         public void SetUp()
@@ -30,7 +34,8 @@ namespace Microwave.Test.Integration
 
             //Other
             _timerButton = new Button();
-            
+            _powerButton = new Button();
+            _startCancelButton = new Button();
         }
 
         [TestCase(101, 10)]
@@ -66,14 +71,19 @@ namespace Microwave.Test.Integration
         [Test]
         public void test()
         {
+            _powerButton.Press();
             _timerButton.Press();
 
+            _startCancelButton.Press();
 
+            Thread.Sleep(60100);
+
+            
 
 
             //_sut.StartCooking(3, 1000);
 
-            
+
             ////_timer.Expired += Raise.EventWith(this, EventArgs.Empty);
 
             //_output.OutputLine(Arg.Is<string>(str => str.Contains($"{1},{55}")));
