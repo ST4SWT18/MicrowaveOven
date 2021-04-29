@@ -1,4 +1,5 @@
-﻿using Microwave.Classes.Interfaces;
+﻿using System;
+using Microwave.Classes.Interfaces;
 
 namespace Microwave.Classes.Boundary
 {

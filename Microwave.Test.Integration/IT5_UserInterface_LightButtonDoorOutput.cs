@@ -1,6 +1,9 @@
-﻿using Microwave.Classes.Boundary;
+﻿using System;
+using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
+using NSubstitute;
+using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 
 namespace Microwave.Test.Integration
@@ -34,6 +37,24 @@ namespace Microwave.Test.Integration
             _powerTube = new PowerTube(_output);
             _cookController = new CookController(_timer, _display, _powerTube);
             _uut = new UserInterface(_powerButton, _timeButton, _cancelButton, _door, _display, _light, _cookController);
+        }
+
+        [Test]
+        public void ResetValues_PowerLevelAndTime_IsReset()
+        {
+            //_powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            //_cancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            //_powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            //_uut.OnPowerPressed(this, EventArgs.Empty);
+            //_powerButton.Press();
+            _powerButton.Press();
+
+            var powerBeforeIncrease = 50;
+            var powerAfterIncrease = 100;
+            var powerAfterReset = 50;
+            //_output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains($"{powerBeforeIncrease}")));
+            //_output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains($"{powerAfterIncrease}")));
+            _output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains($"Display shows: 100 W")));
         }
     }
 }
