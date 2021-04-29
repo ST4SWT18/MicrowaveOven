@@ -9,26 +9,26 @@ namespace Microwave.Test.Integration
     public class IT3_Light_Output
     {
         private IOutput _output;
-        private ILight _uut;
+        private ILight _sut;
 
         [SetUp]
         public void SetUp()
         {
             _output = new Output();
-            _uut = new Light(_output);
+            _sut = new Light(_output);
         }
 
         [Test]
         public void TurnOn_LightIsTurnedOnIsWritten()
         {
-            _uut.TurnOn();
+            _sut.TurnOn();
             _output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains($"on")));
         }
 
         [Test]
         public void TurnOff_LightIsTurnedOffIsWritten()
         {
-            _uut.TurnOff();
+            _sut.TurnOff();
             _output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains("off")));
         }
     }

@@ -33,9 +33,9 @@ namespace Microwave.App
 
             // Simulate a simple sequence
             
-            //door.Open();
+            door.Open();
 
-            //door.Close();
+            door.Close();
 
             powerButton.Press();
 

@@ -9,13 +9,13 @@ namespace Microwave.Test.Integration
     public class IT2_Display_Output
     {
         private IOutput _output;
-        private Display _uut;
+        private Display _sut;
         
         [SetUp]
         public void SetUp()
         {
             _output = new Output();
-            _uut = new Display(_output);
+            _sut = new Display(_output);
         }
 
         [TestCase(1,2)]
@@ -24,7 +24,7 @@ namespace Microwave.Test.Integration
         [TestCase(55, 17)]
         public void ShowTime_MinutesAndSecondsIsDisplayed(int min, int sec)
         {
-            _uut.ShowTime(min, sec);
+            _sut.ShowTime(min, sec);
             _output.OutputLine(Arg.Is<string>(str => str.Contains($"{min},{sec}")));
         }
 
@@ -33,14 +33,14 @@ namespace Microwave.Test.Integration
         [TestCase(1000)]
         public void ShowPower_PowerIsDisplayed(int power)
         {
-            _uut.ShowPower(power);
+            _sut.ShowPower(power);
             _output.OutputLine(Arg.Is<string>(str => str.Contains($"{power}")));
         }
 
         [Test]
         public void Clear_DisplayClearedIsDisplayed()
         {
-            _uut.Clear();
+            _sut.Clear();
             _output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains("cleared")));
         }
 
