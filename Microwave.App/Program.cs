@@ -34,42 +34,50 @@ namespace Microwave.App
             // Simulate a simple sequence
 
 
-            //bool finish = false;
-            //do
-            //{
-            //    string input;
-            //    System.Console.WriteLine("Indtast P, T eller C");
-            //    input = Console.ReadLine().ToString().ToLower();
-            //    if (string.IsNullOrEmpty(input)) continue;
+            System.Console.WriteLine("Tryk på O");
+            bool run = true;
+            while (run)
+            {
+                string input;
+                input = Console.ReadLine().ToString().ToLower();
+                //if (string.IsNullOrEmpty(input)) continue;
 
-            //    switch (input[0])
-            //    {
-            //        case 'p':
-            //            powerButton.Press();
-            //            Console.WriteLine("Tryk T");
-            //            break;
+                switch (input[0])
+                {
+                    case 'o':
+                        door.Open();
+                        Console.WriteLine("\r\nTryk C");
+                        break;
+                    case 'c':
+                        door.Close();
+                        Console.WriteLine("\r\nTryk P");
+                        break;
+                    case 'p':
+                        powerButton.Press();
+                        Console.WriteLine("\r\nTryk P igen for mere tid eller T");
+                        break;
 
-            //        case 't':
-            //            timeButton.Press();
-            //            break;
-            //        case 'c':
-            //            startCancelButton.Press();
-            //            break;
-            //            break;
-            //    }
+                    case 't':
+                        timeButton.Press();
+                        Console.WriteLine("\r\nTryk T igen for mere tid eller S");
+                        break;
 
-            //} while (!finish);
+                    case 's':
+                        startCancelButton.Press();
+                        break;
+                }
+            }
 
 
-            door.Open();
+            //door.Open();
 
-            door.Close();
+            //door.Close();
 
-            powerButton.Press();
+            //powerButton.Press();
 
-            timeButton.Press();
+            //timeButton.Press();
 
-            startCancelButton.Press();
+            //startCancelButton.Press();
 
             // The simple sequence should now run
 
