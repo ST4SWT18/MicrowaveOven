@@ -42,11 +42,12 @@ namespace Microwave.Test.Integration
         [TestCase(700)]
         public void TurnOff_PowerIsTurnedOffIsWritten(int power)
         {
+            _sut.TurnOn(power);
             _sut.TurnOff();
 
             var text = _readConsole.ToString();
 
-            Assert.That(text, Is.EqualTo($"PowerTube turned off\r\n"));
+            Assert.That(text, Is.EqualTo($"PowerTube works with {power}\r\nPowerTube turned off\r\n"));
             
             //_output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains($"off")));
         }
