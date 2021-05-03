@@ -37,11 +37,12 @@ namespace Microwave.Test.Integration
         [Test]
         public void TurnOff_LightIsTurnedOffIsWritten()
         {
+            _sut.TurnOn();
             _sut.TurnOff();
 
             var text = _readConsole.ToString();
 
-            Assert.That(text, Is.EqualTo("Light is turned off\r\n"));
+            Assert.That(text, Is.EqualTo("Light is turned on\r\nLight is turned off\r\n"));
             //_output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains("off")));
         }
     }
