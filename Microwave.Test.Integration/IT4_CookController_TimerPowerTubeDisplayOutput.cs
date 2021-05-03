@@ -1,9 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
-using NSubstitute;
 using NUnit.Framework;
 using Timer = Microwave.Classes.Boundary.Timer;
 
@@ -22,6 +22,7 @@ namespace Microwave.Test.Integration
         private IButton _timerButton;
         private IButton _powerButton;
         private IButton _startCancelButton;
+        private StringWriter _readConsole;
 
         [SetUp]
         public void SetUp()
@@ -36,6 +37,8 @@ namespace Microwave.Test.Integration
             _timerButton = new Button();
             _powerButton = new Button();
             _startCancelButton = new Button();
+            _readConsole = new StringWriter();
+            System.Console.SetOut(_readConsole);
         }
 
         [TestCase(101, 10)]
@@ -68,25 +71,37 @@ namespace Microwave.Test.Integration
         //    _powerTube.Received(1).TurnOff();
         //}
 
-        [Test]
-        public void test()
+        [TestCase(1,1)]
+        public void test(int NumberOfPowerPresses,int time)
         {
-            _powerButton.Press();
-            _timerButton.Press();
+            string result = "";
+
+            //int timesRun = NumberOfPowerPresses + 1;
+
+            for (int i = 0; i < NumberOfPowerPresses; i++)
+            {
+                _powerButton.Press();
+                result += string.Join("", "Display shows: " + 50 * i + " W\r\n");
+            }
+            //var text = _readConsole.ToString();
+
+            //_timerButton.Press();
+            
+            //for (int i = 0; i < time;)
+            //{
+            //    i++;
+            //    _timerButton.Press();
+            //    string eachTime = "Display shows: 0" + i + ":00\r\n";
+            //    result += string.Join("", eachTime);
+            //}
 
             _startCancelButton.Press();
+            result += string.Join("", "Light is turned on\r\nPowerTube works with " + 50 * NumberOfPowerPresses + "\r\n");
 
-            Thread.Sleep(60100);
+            var text = _readConsole.ToString();
 
-            
-
-
-            //_sut.StartCooking(3, 1000);
-
-
-            ////_timer.Expired += Raise.EventWith(this, EventArgs.Empty);
-
-            //_output.OutputLine(Arg.Is<string>(str => str.Contains($"{1},{55}")));
+            Assert.That(text, Is.EqualTo(result));
+            //Assert.AreEqual(result, text);
         }
     }
 }

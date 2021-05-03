@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Interfaces;
 using NUnit.Framework;
@@ -11,12 +12,15 @@ namespace Microwave.Test.Integration
     {
         private IOutput _output;
         private IPowerTube _sut;
+        private StringWriter _readConsole;
 
         [SetUp]
         public void SetUp()
         {
             _output = new Output();
             _sut = new PowerTube(_output);
+            _readConsole = new StringWriter();
+            System.Console.SetOut(_readConsole);
         }
 
         [TestCase(1)]
@@ -25,7 +29,12 @@ namespace Microwave.Test.Integration
         public void TurnOn_PowerIsCorrectlyWritten(int power)
         {
             _sut.TurnOn(power);
-            _output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains($"{power}")));
+
+            var text = _readConsole.ToString();
+
+            Assert.That(text, Is.EqualTo($"PowerTube works with {power}\r\n"));
+
+            //_output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains($"{power}")));
         }
 
         [TestCase(1)]
@@ -34,7 +43,12 @@ namespace Microwave.Test.Integration
         public void TurnOff_PowerIsTurnedOffIsWritten(int power)
         {
             _sut.TurnOff();
-            _output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains($"off")));
+
+            var text = _readConsole.ToString();
+
+            Assert.That(text, Is.EqualTo($"PowerTube turned off\r\n"));
+            
+            //_output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains($"off")));
         }
     }
 }
