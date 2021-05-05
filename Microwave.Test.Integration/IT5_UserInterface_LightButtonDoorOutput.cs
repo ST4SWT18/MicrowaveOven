@@ -61,21 +61,22 @@ namespace Microwave.Test.Integration
         [Test]
         public void TimeButton_Press2Times_()
         {
-            string outputText = "";
-            var powerBeforeIncrease = 50;
+            string result = "";
+            var power = 50;
 
             _powerButton.Press();
 
-            outputText.Join(outputText, $"Display shows: {powerBeforeIncrease}W\r\n");
-            _timeButton.Press();
-            _timeButton.Press();
+            result += string.Join("","Display shows: {power} W\r\n");
 
-            
-            var powerAfterIncrease = 100;
-
+            for (int i = 0; i < 5; i++)
+            {
+                _timerButton.Press();
+                result += string.Join("", "Display shows: 0{1*i}:00\r\n");
+            }
+        
             var text = _readConsole.ToString();
 
-            Assert.That(text, Is.EqualTo($"Display shows: {powerBeforeIncrease} W\r\nDisplay shows: {powerAfterIncrease} W\r\n"));
+            Assert.That(text, Is.EqualTo(result));
         }
 
         //Skal måske være i UserInterface...
