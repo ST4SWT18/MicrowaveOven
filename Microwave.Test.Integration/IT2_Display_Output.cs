@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Microwave.Classes.Boundary;
+﻿using Microwave.Classes.Boundary;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
@@ -11,14 +10,11 @@ namespace Microwave.Test.Integration
     {
         private IOutput _output;
         private Display _sut;
-        private StringWriter _readConsole;
         
         [SetUp]
         public void SetUp()
         {
             _output = new Output();
-            _readConsole = new StringWriter();
-            System.Console.SetOut(_readConsole);
             _sut = new Display(_output);
         }
 
