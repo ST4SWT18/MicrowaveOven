@@ -44,8 +44,6 @@ namespace Microwave.Test.Integration
             var text = _readConsole.ToString();
 
             Assert.That(text, Is.EqualTo($"PowerTube works with {power}\r\nPowerTube turned off\r\n"));
-            
-            //_output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains($"off")));
         }
     }
 }
