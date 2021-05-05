@@ -30,8 +30,6 @@ namespace Microwave.Test.Integration
             var text = _readConsole.ToString();
 
             Assert.That(text, Is.EqualTo("Light is turned on\r\n"));
-
-            //_output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains($"on")));
         }
 
         [Test]
@@ -43,7 +41,6 @@ namespace Microwave.Test.Integration
             var text = _readConsole.ToString();
 
             Assert.That(text, Is.EqualTo("Light is turned on\r\nLight is turned off\r\n"));
-            //_output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains("off")));
         }
     }
 }

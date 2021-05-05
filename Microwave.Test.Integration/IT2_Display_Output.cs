@@ -33,13 +33,11 @@ namespace Microwave.Test.Integration
             var text = _readConsole.ToString();
 
             Assert.That(text, Is.EqualTo($"Display shows: {min:D2}:{sec:D2}\r\n"));
-
-            //_output.OutputLine(Arg.Is<string>(str => str.Contains($"{min},{sec}")));
         }
 
-        [TestCase(1)]
+        [TestCase(50)]
         [TestCase(500)]
-        [TestCase(1000)]
+        [TestCase(700)]
         public void ShowPower_PowerIsDisplayed(int power)
         {
             _sut.ShowPower(power);
@@ -47,8 +45,6 @@ namespace Microwave.Test.Integration
             var text = _readConsole.ToString();
 
             Assert.That(text, Is.EqualTo($"Display shows: {power} W\r\n"));
-
-            //_output.OutputLine(Arg.Is<string>(str => str.Contains($"{power}")));
         }
 
         [Test]
@@ -59,8 +55,6 @@ namespace Microwave.Test.Integration
             var text = _readConsole.ToString();
 
             Assert.That(text, Is.EqualTo("Display cleared\r\n"));
-
-            //_output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains("cleared")));
         }
 
     }

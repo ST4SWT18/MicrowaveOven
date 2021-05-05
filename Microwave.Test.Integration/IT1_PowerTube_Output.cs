@@ -23,7 +23,6 @@ namespace Microwave.Test.Integration
             System.Console.SetOut(_readConsole);
         }
 
-        [TestCase(1)]
         [TestCase(50)]
         [TestCase(700)]
         public void TurnOn_PowerIsCorrectlyWritten(int power)
@@ -33,11 +32,8 @@ namespace Microwave.Test.Integration
             var text = _readConsole.ToString();
 
             Assert.That(text, Is.EqualTo($"PowerTube works with {power}\r\n"));
-
-            //_output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains($"{power}")));
         }
 
-        [TestCase(1)]
         [TestCase(50)]
         [TestCase(700)]
         public void TurnOff_PowerIsTurnedOffIsWritten(int power)
