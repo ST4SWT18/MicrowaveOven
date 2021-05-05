@@ -48,6 +48,11 @@ namespace Microwave.Test.Integration
             _readConsole = new StringWriter();
             System.Console.SetOut(_readConsole);
         }
+        [TearDown]
+        public void TearDown()
+        {
+            _timer.Stop();
+        }
         [Test]
         public void PowerButton_Press2Times_50And100IsDisplayed()
         {
