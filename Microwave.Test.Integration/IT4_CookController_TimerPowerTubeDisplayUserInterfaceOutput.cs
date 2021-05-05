@@ -94,36 +94,5 @@ namespace Microwave.Test.Integration
             var text = _readConsole.ToString();
             Assert.That(text, Is.EqualTo($"PowerTube works with {power}\r\nPowerTube turned off\r\n"));
         }
-        
-
-        //[TestCase(50, 60)]
-        //[TestCase(700, 60)]
-        //public void OnTimerTick_And_OnTimerExpired_ShowsTimeLeft_AndTimeDone(int power, int time)
-        //{
-        //    string result = "";
-            
-        //    _powerButton.Press();
-        //    result += string.Join("", $"Display shows: {power} W\r\n");
-
-        //    _timerButton.Press();
-        //    result += string.Join("", $"Display shows: 01:00\r\n");
-
-        //    _startCancelButton.Press();
-        //    result += string.Join("", $"Light is turned on\r\nPowerTube works with {power}\r\n");
-
-        //    Thread.Sleep(61000);
-
-        //    result += string.Join("", $"PowerTube works with {power}\r\n");
-
-        //    for (int i = 1; i < 61; i++)
-        //    {
-        //        result += string.Join("", $"Display shows: 00:0" + (time - i) + "\r\n");
-        //    }
-
-        //    result += string.Join("", $"PowerTube turned off\r\n");
-        //    result += string.Join("", "Display cleared\r\nLight is turned off\r\n");
-        //    var text = _readConsole.ToString();
-        //    Assert.That(text, Is.EqualTo(result));
-        //}
     }
 }
