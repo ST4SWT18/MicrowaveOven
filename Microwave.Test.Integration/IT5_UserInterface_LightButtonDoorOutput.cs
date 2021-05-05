@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
@@ -60,11 +61,16 @@ namespace Microwave.Test.Integration
         [Test]
         public void TimeButton_Press2Times_()
         {
+            string outputText = "";
+            var powerBeforeIncrease = 50;
+
             _powerButton.Press();
+
+            outputText.Join(outputText, $"Display shows: {powerBeforeIncrease}W\r\n");
             _timeButton.Press();
             _timeButton.Press();
 
-            var powerBeforeIncrease = 50;
+            
             var powerAfterIncrease = 100;
 
             var text = _readConsole.ToString();
