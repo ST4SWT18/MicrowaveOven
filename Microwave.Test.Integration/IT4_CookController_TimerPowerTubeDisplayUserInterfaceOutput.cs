@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
+using Timer = Microwave.Classes.Boundary.Timer;
 
 namespace Microwave.Test.Integration
 {
@@ -16,8 +18,16 @@ namespace Microwave.Test.Integration
         private IOutput _output;
         private IDisplay _display;
         private IPowerTube _powerTube;
-        private ICookController _sut;
+        private IUserInterface _userInterface;
+        private CookController _sut;
         private StringWriter _readConsole;
+
+
+        private IButton _powerButton;
+        private IButton _timerButton;
+        private IButton _startCancelButton;
+        private IDoor _door;
+        private ILight _light;
 
         [SetUp]
         public void SetUp()
@@ -25,8 +35,11 @@ namespace Microwave.Test.Integration
             _timer = new Timer();
             _output = new Output();
             _display = new Display(_output);
-            _powerTube = new PowerTube(_output); //Substitute.For<IPowerTube>(); //
+
+            _powerTube = new PowerTube(_output);
             _sut = new CookController(_timer, _display, _powerTube);
+            _userInterface = new UserInterface(_powerButton, _timerButton, _startCancelButton, _door, _display, _light, _sut);
+            _sut.UI = _userInterface;
             _readConsole = new StringWriter();
             System.Console.SetOut(_readConsole);
         }
@@ -65,15 +78,37 @@ namespace Microwave.Test.Integration
         }
 
 
-        [TestCase(50,101)]
-        [TestCase(700,101)]
+        [TestCase(50, 101)]
+        [TestCase(700, 101)]
         public void Stop_PowerTubeIsTurnedOff(int power, int time)
         {
-            //_sut.StartCooking(power, time);
-            //_sut.Stop();
+            _sut.StartCooking(power, time);
+            _sut.Stop();
 
-            //var text = _readConsole.ToString();
-            //Assert.That(text, Is.EqualTo($"PowerTube works with 50\r\nPowerTube turned off\r\n"));
+            var text = _readConsole.ToString();
+            Assert.That(text, Is.EqualTo($"PowerTube works with {power}\r\nPowerTube turned off\r\n"));
+        }
+        
+
+        [TestCase(50, 5)]
+        [TestCase(700, 5)]
+        public void OnTimerTick_And_OnTimerExpired_ShowsTimeLeft_AndTimeDone(int power, int time)
+        {
+            string result = "";
+            _sut.StartCooking(power, time);
+            Thread.Sleep(6000);
+
+            result += string.Join("", $"PowerTube works with {power}\r\n");
+
+            for (int i = 1; i < 6; i++)
+            {
+                result += string.Join("", $"Display shows: 00:0" + (time - i) + "\r\n");
+            }
+
+            result += string.Join("", $"PowerTube turned off\r\n");
+            result += string.Join("", "Display cleared\r\nLight is turned off\r\n");
+            var text = _readConsole.ToString();
+            Assert.That(text, Is.EqualTo(result));
         }
     }
 }
