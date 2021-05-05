@@ -42,6 +42,8 @@ namespace Microwave.Test.Integration
             _powerTube = new PowerTube(_output);
             _cookController = new CookController(_timer, _display, _powerTube);
             _sut = new UserInterface(_powerButton, _timerButton, _startCancelButton, _door, _display, _light, _cookController);
+            
+
 
             _readConsole = new StringWriter();
             System.Console.SetOut(_readConsole);
@@ -286,7 +288,7 @@ namespace Microwave.Test.Integration
 
         //Test til at finde 1000 fejlen
         [Test]
-        public void test1()
+        public void Wait()
         {
             string result = "";
 
@@ -297,10 +299,9 @@ namespace Microwave.Test.Integration
             result += string.Join("", "Display shows: 01:00\r\n");
 
             _startCancelButton.Press();
-
             result += string.Join("", "Light is turned on\r\nPowerTube works with 50\r\n");
 
-            Thread.Sleep(60100);
+            Thread.Sleep(61000);
 
             for (int i = 1; i < 51; i++)
             {
