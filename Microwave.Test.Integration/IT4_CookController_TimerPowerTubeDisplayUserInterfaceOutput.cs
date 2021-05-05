@@ -10,7 +10,7 @@ using NUnit.Framework.Constraints;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT4_CookController_TimerPowerTubeDisplayOutput
+    public class IT4_CookController_TimerPowerTubeDisplayUserInterfaceOutput
     {
         private ITimer _timer;
         private IOutput _output;
