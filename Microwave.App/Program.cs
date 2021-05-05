@@ -1,6 +1,7 @@
 ﻿using System;
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
+using Microwave.Classes.Interfaces;
 
 namespace Microwave.App
 {
@@ -24,10 +25,10 @@ namespace Microwave.App
 
             Microwave.Classes.Boundary.Timer timer = new Timer();
 
-            CookController cooker = new CookController(timer, display, powerTube);
+            ICookController cooker = new CookController(timer, display, powerTube);
 
-            UserInterface ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
-
+            IUserInterface ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
+            
             // Finish the double association
             cooker.UI = ui;
 
@@ -40,7 +41,6 @@ namespace Microwave.App
             {
                 string input;
                 input = Console.ReadLine().ToString().ToLower();
-                //if (string.IsNullOrEmpty(input)) continue;
 
                 switch (input[0])
                 {
