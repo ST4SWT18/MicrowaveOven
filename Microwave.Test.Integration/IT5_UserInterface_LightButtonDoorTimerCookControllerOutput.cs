@@ -290,7 +290,7 @@ namespace Microwave.Test.Integration
             {
                 result += string.Join("", "Display shows: 00:0" + (60 - i) + "\r\n");
             }
-
+            Thread.Sleep(2000);
             result += string.Join("", "PowerTube turned off\r\nDisplay cleared\r\nLight is turned off\r\n");
             var text = _readConsole.ToString();
 
