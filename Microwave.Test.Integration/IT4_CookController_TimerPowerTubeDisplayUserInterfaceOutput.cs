@@ -49,6 +49,11 @@ namespace Microwave.Test.Integration
             _readConsole = new StringWriter();
             System.Console.SetOut(_readConsole);
         }
+        [TearDown]
+        public void TearDown()
+        {
+            _timer.Stop();
+        }
 
         [TestCase(701, 10)]
         [TestCase(49, 10)]
