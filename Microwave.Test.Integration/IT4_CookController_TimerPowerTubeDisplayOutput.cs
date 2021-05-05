@@ -14,7 +14,7 @@ namespace Microwave.Test.Integration
         private IOutput _output;
         private IDisplay _display;
         private IPowerTube _powerTube;
-        private CookController _sut;
+        private ICookController _sut;
 
         [SetUp]
         public void SetUp()
@@ -28,8 +28,6 @@ namespace Microwave.Test.Integration
 
         [TestCase(701, 10)]
         [TestCase(49, 10)]
-        [TestCase(701, 10)]
-        [TestCase(50, 10)]
         public void StartCooking_PowerOutOfRange_ThrowsException(int power, int time)
         {
             Assert.That(() => _sut.StartCooking(power, time), Throws.TypeOf<ArgumentOutOfRangeException>());
@@ -51,15 +49,6 @@ namespace Microwave.Test.Integration
             Assert.That(_timer.TimeRemaining, Is.EqualTo(time));
         }
 
-        [Test]
-        public void Stop_()
-        {
-            _sut.Stop();
-            _powerTube.Received(1).TurnOff();
-        }
-
-
-        //[Test]
-
+        
     }
 }
