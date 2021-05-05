@@ -28,8 +28,6 @@ namespace Microwave.Test.Integration
 
         [TestCase(701, 10)]
         [TestCase(49, 10)]
-        [TestCase(701, 10)]
-        [TestCase(50, 10)]
         public void StartCooking_PowerOutOfRange_ThrowsException(int power, int time)
         {
             Assert.That(() => _sut.StartCooking(power, time), Throws.TypeOf<ArgumentOutOfRangeException>());
