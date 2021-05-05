@@ -34,7 +34,7 @@ namespace Microwave.Test.Unit
         //Power går fra 50-700, derfor er testcasene
         [TestCase(-5)]
         [TestCase(-1)]
-        [TestCase(0)]
+        [TestCase(49)]
         [TestCase(701)]
         [TestCase(750)]
         public void TurnOn_WasOffOutOfRangePower_ThrowsException(int power)
