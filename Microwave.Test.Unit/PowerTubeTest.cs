@@ -19,20 +19,24 @@ namespace Microwave.Test.Unit
             uut = new PowerTube(output);
         }
 
-        [TestCase(1)]
-        [TestCase(50)]
+        //Denne unit test er rettet
+        //Power går fra 50-700, derfor er testcasene
+        [TestCase(50)] 
         [TestCase(100)]
+        [TestCase(700)]
         public void TurnOn_WasOffCorrectPower_CorrectOutput(int power)
         {
             uut.TurnOn(power);
             output.Received().OutputLine(Arg.Is<string>(str => str.Contains($"{power}")));
         }
 
+        //Denne unit test er rettet
+        //Power går fra 50-700, derfor er testcasene
         [TestCase(-5)]
         [TestCase(-1)]
-        [TestCase(0)]
-        [TestCase(101)]
-        [TestCase(150)]
+        [TestCase(49)]
+        [TestCase(701)]
+        [TestCase(750)]
         public void TurnOn_WasOffOutOfRangePower_ThrowsException(int power)
         {
             Assert.Throws<System.ArgumentOutOfRangeException>(() => uut.TurnOn(power));

@@ -39,13 +39,14 @@ namespace Microwave.Test.Unit
             Assert.That(!pause.WaitOne(900));
         }
 
+        //Denne unit test er rettet
         [Test]
         public void Start_TimerExpires_ShortEnough()
         {
             ManualResetEvent pause = new ManualResetEvent(false);
 
             uut.Expired += (sender, args) => pause.Set();
-            uut.Start(2000);
+            uut.Start(2); //rettet fra 2000 til 2
 
             // wait for expiration, but not much longer, should come
             Assert.That(pause.WaitOne(2100));
@@ -63,6 +64,7 @@ namespace Microwave.Test.Unit
             Assert.That(!pause.WaitOne(1900));
         }
 
+        //Denne unit test er rettet
         [Test]
         public void Start_TimerTick_CorrectNumber()
         {
@@ -72,7 +74,7 @@ namespace Microwave.Test.Unit
             uut.Expired += (sender, args) => pause.Set();
             uut.TimerTick += (sender, args) => notifications++;
 
-            uut.Start(2000);
+            uut.Start(2); //Rettet fra 2000 til 2
 
             // wait longer than expiration
             Assert.That(pause.WaitOne(2100));
@@ -126,6 +128,7 @@ namespace Microwave.Test.Unit
             Assert.That(!pause.WaitOne(2100));
         }
 
+        //Denne unit test er rettet
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(3)]
@@ -140,12 +143,12 @@ namespace Microwave.Test.Unit
                 if (ticksGone >= ticks)
                     pause.Set();
             };
-            uut.Start(5000);
+            uut.Start(5); //Rettet fra 5000 til 5
 
             // wait for ticks, only a little longer
             pause.WaitOne(ticks * 1000 + 100);
 
-            Assert.That(uut.TimeRemaining, Is.EqualTo(5000-ticks*1000));
+            Assert.That(uut.TimeRemaining, Is.EqualTo(5-ticks)); //Rettet fra 5000 til 5 og uden *1000
         }
     }
 }
