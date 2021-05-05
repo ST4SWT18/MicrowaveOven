@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
 using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
+using Timer = Microwave.Classes.Boundary.Timer;
 
 namespace Microwave.Test.Integration
 {
@@ -113,5 +115,38 @@ namespace Microwave.Test.Integration
 
         }
 
+        //Test til at finde 1000 fejlen
+        [Test]
+        public void test1()
+        {
+            string result = "";
+
+            _powerButton.Press();
+            result += string.Join("", "Display shows: 50 W\r\n");
+
+            _timerButton.Press();
+            result += string.Join("", "Display shows: 01:00\r\n");
+
+            _startCancelButton.Press();
+
+            result += string.Join("", "Light is turned on\r\nPowerTube works with 50\r\n");
+
+            Thread.Sleep(60100);
+
+            for (int i = 1; i < 51; i++)
+            {
+                result += string.Join("", "Display shows: 00:"+(60-i)+"\r\n");
+            }
+
+            for (int i = 51; i < 61; i++)
+            {
+                result += string.Join("", "Display shows: 00:0" + (60 - i) + "\r\n");
+            }
+
+            result += string.Join("", "PowerTube turned off\r\n");
+            var text = _readConsole.ToString();
+
+            Assert.That(text, Is.EqualTo(result));
+        }
     }
 }
