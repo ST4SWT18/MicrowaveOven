@@ -13,7 +13,7 @@ using Timer = Microwave.Classes.Boundary.Timer;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT5_UserInterface_LightButtonDoorOutput
+    public class IT5_UserInterface_LightButtonDoorTimerCookControllerOutput
     {
         private IButton _powerButton;
         private IButton _timerButton;
