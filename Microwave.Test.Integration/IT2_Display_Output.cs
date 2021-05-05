@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Microwave.Classes.Boundary;
+﻿using Microwave.Classes.Boundary;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
@@ -11,14 +10,11 @@ namespace Microwave.Test.Integration
     {
         private IOutput _output;
         private Display _sut;
-        private StringWriter _readConsole;
         
         [SetUp]
         public void SetUp()
         {
             _output = new Output();
-            _readConsole = new StringWriter();
-            System.Console.SetOut(_readConsole);
             _sut = new Display(_output);
         }
 
@@ -29,12 +25,7 @@ namespace Microwave.Test.Integration
         public void ShowTime_MinutesAndSecondsIsDisplayed(int min, int sec)
         {
             _sut.ShowTime(min, sec);
-
-            var text = _readConsole.ToString();
-
-            Assert.That(text, Is.EqualTo($"Display shows: {min:D2}:{sec:D2}\r\n"));
-
-            //_output.OutputLine(Arg.Is<string>(str => str.Contains($"{min},{sec}")));
+            _output.OutputLine(Arg.Is<string>(str => str.Contains($"{min},{sec}")));
         }
 
         [TestCase(1)]
@@ -43,24 +34,14 @@ namespace Microwave.Test.Integration
         public void ShowPower_PowerIsDisplayed(int power)
         {
             _sut.ShowPower(power);
-
-            var text = _readConsole.ToString();
-
-            Assert.That(text, Is.EqualTo($"Display shows: {power} W\r\n"));
-
-            //_output.OutputLine(Arg.Is<string>(str => str.Contains($"{power}")));
+            _output.OutputLine(Arg.Is<string>(str => str.Contains($"{power}")));
         }
 
         [Test]
         public void Clear_DisplayClearedIsDisplayed()
         {
             _sut.Clear();
-
-            var text = _readConsole.ToString();
-
-            Assert.That(text, Is.EqualTo("Display cleared\r\n"));
-
-            //_output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains("cleared")));
+            _output.OutputLine(Arg.Is<string>(str => str.ToLower().Contains("cleared")));
         }
 
     }

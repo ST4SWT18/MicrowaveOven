@@ -22,7 +22,7 @@ namespace Microwave.Test.Integration
         private ICookController _cookController;
         private ITimer _timer;
         private IPowerTube _powerTube;
-        private UserInterface _uut;
+        private UserInterface _sut;
         private StringWriter _readConsole;
 
         [SetUp]
@@ -38,18 +38,31 @@ namespace Microwave.Test.Integration
             _timer = new Timer();
             _powerTube = new PowerTube(_output);
             _cookController = new CookController(_timer, _display, _powerTube);
-            _uut = new UserInterface(_powerButton, _timeButton, _cancelButton, _door, _display, _light, _cookController);
+            _sut = new UserInterface(_powerButton, _timeButton, _cancelButton, _door, _display, _light, _cookController);
 
             _readConsole = new StringWriter();
             System.Console.SetOut(_readConsole);
         }
-
         [Test]
         public void PowerButton_Press2Times_50And100IsWritten()
         {
     
             _powerButton.Press();
             _powerButton.Press();
+
+            var powerBeforeIncrease = 50;
+            var powerAfterIncrease = 100;
+
+            var text = _readConsole.ToString();
+
+            Assert.That(text, Is.EqualTo($"Display shows: {powerBeforeIncrease} W\r\nDisplay shows: {powerAfterIncrease} W\r\n"));
+        }
+        [Test]
+        public void TimeButton_Press2Times_()
+        {
+            _powerButton.Press();
+            _timeButton.Press();
+            _timeButton.Press();
 
             var powerBeforeIncrease = 50;
             var powerAfterIncrease = 100;
