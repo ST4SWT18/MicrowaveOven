@@ -14,7 +14,7 @@ namespace Microwave.Test.Integration
         private IOutput _output;
         private IDisplay _display;
         private IPowerTube _powerTube;
-        private CookController _sut;
+        private ICookController _sut;
 
         [SetUp]
         public void SetUp()
@@ -51,15 +51,6 @@ namespace Microwave.Test.Integration
             Assert.That(_timer.TimeRemaining, Is.EqualTo(time));
         }
 
-        [Test]
-        public void Stop_()
-        {
-            _sut.Stop();
-            _powerTube.Received(1).TurnOff();
-        }
-
-
-        //[Test]
-
+        
     }
 }
