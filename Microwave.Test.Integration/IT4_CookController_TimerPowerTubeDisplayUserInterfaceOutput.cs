@@ -12,7 +12,7 @@ using Timer = Microwave.Classes.Boundary.Timer;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT4_CookController_TimerPowerTubeDisplayUserInterfaceOutput
+    public class IT4_CookController_TimerPowerTubeDisplayUserInterfaceOutput //TODO mangler User interface - stub evt userinterface og output
     {
         private ITimer _timer;
         private IOutput _output;
