@@ -103,38 +103,82 @@ namespace Microwave.Test.Integration
             _output.Received(1).OutputLine(Arg.Is<string>(s => s.Contains("700 W")));
         }
 
+        [Test]
+        public void Button_Time_OutputOneMinute()
+        {
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _door.Closed += Raise.EventWith(this, EventArgs.Empty);
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            _output.Received(1).OutputLine(Arg.Is<string>(s => s.Contains("01:00")));
+        }
+
+        [Test]
+        public void Button_Time_OutputFiveMinute()
+        {
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _door.Closed += Raise.EventWith(this, EventArgs.Empty);
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            _output.Received(1).OutputLine(Arg.Is<string>(s => s.Contains("05:00")));
+        }
+
+        [Test]
+        public void Button_StartCancel_OutputLightOn()
+        {
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _door.Closed += Raise.EventWith(this, EventArgs.Empty);
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+
+            _output.Received(2).OutputLine(Arg.Is<string>(s => s.Contains("on")));
+        }
+
 
         //Test til at finde 1000 fejlen
         [Test]
         public void CookingIsDone_StateCooking_CorrectTextIsDisplayed()
         {
-            string result = "";
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _door.Closed += Raise.EventWith(this, EventArgs.Empty);
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _timerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _sut.CookingIsDone();
+            _output.Received(1).OutputLine(Arg.Is<string>(s => s.Contains("cleared")));
+            _output.Received(2).OutputLine(Arg.Is<string>(s => s.Contains("off")));
+        }
 
-            _powerButton.Press();
-            result += string.Join("", "Display shows: 50 W\r\n");
+        [Test]
+        public void Button_SetPower_OpenDoor()
+        {
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _door.Closed += Raise.EventWith(this, EventArgs.Empty);
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
 
-            _timerButton.Press();
-            result += string.Join("", "Display shows: 01:00\r\n");
 
-            _startCancelButton.Press();
-            result += string.Join("", "Light is turned on\r\nPowerTube works with 50\r\n");
+            _output.Received(1).OutputLine(Arg.Is<string>(s => s.Contains("cleared")));
+        }
 
-            Thread.Sleep(61000);
+        [Test]
+        public void Button_SetPower_StartCancel()
+        {
+            _door.Opened += Raise.EventWith(this, EventArgs.Empty);
+            _door.Closed += Raise.EventWith(this, EventArgs.Empty);
+            _powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            _startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
 
-            for (int i = 1; i < 51; i++)
-            {
-                result += string.Join("", "Display shows: 00:"+(60-i)+"\r\n");
-            }
 
-            for (int i = 51; i < 61; i++)
-            {
-                result += string.Join("", "Display shows: 00:0" + (60 - i) + "\r\n");
-            }
-            Thread.Sleep(2000);
-            result += string.Join("", "PowerTube turned off\r\nDisplay cleared\r\nLight is turned off\r\n");
-            var text = _readConsole.ToString();
-
-            Assert.That(text, Is.EqualTo(result));
+            _output.Received(1).OutputLine(Arg.Is<string>(s => s.Contains("cleared")));
         }
     }
 }
